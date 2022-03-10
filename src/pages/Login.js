@@ -43,11 +43,23 @@ class Login extends Component {
 
   isEmail = (email) => String(email).toLowerCase().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 
+  handleSettingsBtnClick = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  };
+
   render() {
     const { isDisabled } = this.state;
     return (
       <header className="App-header">
         <img src={ logo } className="App-logo" alt="logo" />
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ () => this.handleSettingsBtnClick() }
+        >
+          Configurações
+        </button>
         <form>
           <label htmlFor="input-email">
             E-mail
