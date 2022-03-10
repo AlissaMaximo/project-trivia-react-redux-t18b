@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { LOGIN_BUTTON, ADD_GRAVATAR } from '../actions';
+import token from './reducerToken';
 
 export const INITIAL_STATE = {
   email: '',
@@ -25,6 +26,6 @@ export const user = (state = INITIAL_STATE, action) => {
   }
 };
 
-const rootReducer = combineReducers({ user });
+const rootReducer = combineReducers({ user, token });
 
 export default rootReducer;
