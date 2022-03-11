@@ -1,6 +1,7 @@
 export const LOGIN_BUTTON = 'LOGIN_BUTTON';
 export const ADD_GRAVATAR = 'ADD_GRAVATAR';
 export const ADD_TOKEN = 'ADD_TOKEN';
+export const CORRECT_ANSWER = 'CORRECT_ANSWER';
 
 export const loginButton = (value) => ({
   type: LOGIN_BUTTON,
@@ -16,6 +17,10 @@ export const addTokenRequest = () => async (dispatch) => {
     payload: data.token,
   });
 };
+
+export const addCorrectAnswer = () => ({
+  type: CORRECT_ANSWER,
+});
 
 export const addGravatar = (hashEmail) => ({
   type: ADD_GRAVATAR,

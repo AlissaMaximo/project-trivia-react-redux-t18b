@@ -31,15 +31,13 @@ class Login extends Component {
     }, this.buttonVerify);
   }
 
-  handleClick = () => {
+  handleClick = async () => {
     const { requestHashEmail, addUserInfo, history, requestToken } = this.props;
     const { email, name } = this.state;
     const emailMd5 = md5(email).toString();
     addUserInfo({ email, name });
     requestHashEmail(emailMd5);
-    requestToken();
-    // localStorage.setItem('token');
-    console.log(this.props);
+    await requestToken();
     history.push('/play');
   }
 

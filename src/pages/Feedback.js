@@ -1,18 +1,19 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import HeaderInGame from '../components/HeaderInGame';
 
-class FeedBack extends Component {
+class Feedback extends Component {
   createMessageFeedback = () => {
-    // aqui é necessário recuperar as informações de acertos que vem do localstorage
+    const { assertions } = this.props;
+    console.log(assertions);
     const acceptableHitNumber = 3;
-    const rightAnswers = localStorage.getItem('rightAnswers');
-    const rightAnswersLength = rightAnswers.length;
-    if (rightAnswersLength < acceptableHitNumber) {
+    if (assertions < acceptableHitNumber) {
       return (
         <p data-testid="feedback-text">Could be better...</p>
       );
     }
-    if (rightAnswersLength >= acceptableHitNumber) {
+    if (assertions >= acceptableHitNumber) {
       return (
         <p data-testid="feedback-text">Well Done!</p>
       );
@@ -23,10 +24,18 @@ class FeedBack extends Component {
     return (
       <div>
         <HeaderInGame />
-        {this.createMessageFeedback}
+        {this.createMessageFeedback()}
       </div>
     );
   }
 }
 
-export default FeedBack;
+Feedback.propTypes = {
+  assertions: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  assertions: state.user.assertions,
+});
+
+export default connect(mapStateToProps)(Feedback);

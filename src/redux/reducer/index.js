@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
-import { LOGIN_BUTTON, ADD_GRAVATAR } from '../actions';
+import { LOGIN_BUTTON, ADD_GRAVATAR, CORRECT_ANSWER } from '../actions';
 import token from './reducerToken';
 
 export const INITIAL_STATE = {
   email: '',
   name: '',
   hashEmail: '',
+  assertions: 0,
 };
 
 export const user = (state = INITIAL_STATE, action) => {
@@ -20,6 +21,11 @@ export const user = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       hashEmail: action.payload,
+    };
+  case CORRECT_ANSWER:
+    return {
+      ...state,
+      assertions: state.assertions + 1,
     };
   default:
     return state;
