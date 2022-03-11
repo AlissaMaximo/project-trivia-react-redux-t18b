@@ -26,24 +26,54 @@ class Play extends Component {
     });
   }
 
-  handleClickCorrectAnswer = ({ target }) => {
-    console.log(target);
+  getAlternatives = () => [...document.getElementsByClassName('alternative')] || []
+
+  resetAlternativesStyle = () => {
+    this
+      .getAlternatives()
+      .forEach((alternative) => { alternative.style = {}; });
+  }
+
+   revealAnswers = () => {
+     const alternatives = this.getAlternatives();
+
+     if (alternatives) {
+       alternatives
+         .filter((alternative) => alternative.className.includes('correct'))
+         .forEach((alternative) => {
+           alternative.style.border = '3px solid rgb(6, 240, 15)';
+         });
+
+       alternatives
+         .filter((alternative) => alternative.className.includes('wrong'))
+         .forEach((alternative) => {
+           alternative.style.border = '3px solid rgb(255, 0, 0)';
+         });
+     }
+   }
+
+  componentDidUpdate = () => {
+    this.resetAlternativesStyle();
+  }
+
+  handleCorrect = () => {
+    this.revealAnswers();
     const { dispatch } = this.props;
     dispatch(addCorrectAnswer());
   }
 
-  handleClickWrongAnswer = ({ target }) => {
-    console.log(target);
+  handleWrong = () => {
+    this.revealAnswers();
   }
 
-  handleClickNext = () => {
-    const { history } = this.props;
-    const { questionPosition } = this.state;
-    const maximumLengthAnswer = 4;
-    if (questionPosition === maximumLengthAnswer) {
-      history.push('/feedback');
+    handleClickNext = () => {
+      const { history } = this.props;
+      const { questionPosition } = this.state;
+      const maximumLengthAnswer = 4;
+      if (questionPosition === maximumLengthAnswer) {
+        history.push('/feedback');
+      }
     }
-  }
 
   showQuestions = () => {
     const { questions, questionPosition } = this.state;
@@ -51,25 +81,25 @@ class Play extends Component {
     const allAnswerSorted = incorrectAnswers
       .map((incorrect, i) => (
         <button
-          value="wrong"
-          onClick={ this.handleClickWrongAnswer }
           type="button"
           key={ i }
+          className="alternative wrong"
           data-testid={ `wrong-answer-${i}` }
-          disabled={ false }
+          onClick={ this.handleWrong }
         >
           {incorrect}
         </button>
       ));
+
     allAnswerSorted
       .splice(Math.round(Math.random()
       * incorrectAnswers.length), 0, (
         <button
-          value="correct"
           key="correct"
           type="button"
+          className="alternative correct"
           data-testid="correct-answer"
-          onClick={ this.handleClickCorrectAnswer }
+          onClick={ this.handleCorrect }
         >
           {questions[questionPosition].correct_answer}
         </button>
