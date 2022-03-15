@@ -2,6 +2,8 @@ export const LOGIN_BUTTON = 'LOGIN_BUTTON';
 export const ADD_GRAVATAR = 'ADD_GRAVATAR';
 export const ADD_TOKEN = 'ADD_TOKEN';
 export const CORRECT_ANSWER = 'CORRECT_ANSWER';
+export const IS_TIME_OVER = 'IS_TIME_OVER';
+export const ADD_SCORE = 'ADD_SCORE';
 
 export const loginButton = (value) => ({
   type: LOGIN_BUTTON,
@@ -25,4 +27,13 @@ export const addCorrectAnswer = () => ({
 export const addGravatar = (hashEmail) => ({
   type: ADD_GRAVATAR,
   payload: hashEmail,
+});
+
+export const verifyCountdown = () => ({
+  type: IS_TIME_OVER,
+});
+
+export const addScore = (score) => ({
+  type: ADD_SCORE,
+  payload: score,
 });

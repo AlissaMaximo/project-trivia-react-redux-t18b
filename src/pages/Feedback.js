@@ -6,7 +6,6 @@ import HeaderInGame from '../components/HeaderInGame';
 class Feedback extends Component {
   createMessageFeedback = () => {
     const { assertions } = this.props;
-    console.log(assertions);
     const acceptableHitNumber = 3;
     if (assertions < acceptableHitNumber) {
       return (
@@ -36,6 +35,7 @@ Feedback.propTypes = {
 
 const mapStateToProps = (state) => ({
   assertions: state.user.assertions,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps)(Feedback);
