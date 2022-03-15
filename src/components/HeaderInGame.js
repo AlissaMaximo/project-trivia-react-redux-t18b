@@ -33,8 +33,8 @@ HeaderInGame.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  name: state.user.name,
-  hashEmail: state.user.hashEmail,
+  name: state.player.name,
+  hashEmail: state.player.hashEmail,
   score: state.player.score,
 });
 
