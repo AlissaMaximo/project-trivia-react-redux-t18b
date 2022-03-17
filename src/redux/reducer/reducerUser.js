@@ -1,4 +1,4 @@
-// import { LOGIN_BUTTON, ADD_GRAVATAR, CORRECT_ANSWER } from '../actions';
+// import { LOGIN_BUTTON, ADD_GRAVATAR, CORRECT_ANSWER, ADD_SCORE } from '../actions';
 
 // const INITIAL_STATE = {
 //   email: '',
@@ -25,6 +25,12 @@
 //       ...state,
 //       assertions: state.assertions + 1,
 //     };
+//   case ADD_SCORE: {
+//     const score = state.score + action.payload;
+//     localStorage.setItem('player', JSON.stringify({ score }));
+
+//     return { ...state, score };
+//   }
 //   default:
 //     return state;
 //   }

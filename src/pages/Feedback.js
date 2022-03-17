@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import HeaderInGame from '../components/HeaderInGame';
 
 class Feedback extends Component {
@@ -36,6 +37,9 @@ class Feedback extends Component {
             assertions || '0'
           }
         </p>
+        <Link to="/ranking">
+          <button data-testid="btn-ranking" type="button">Ranking</button>
+        </Link>
       </div>
     );
   }

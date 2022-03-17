@@ -1,4 +1,4 @@
-import { ADD_SCORE, LOGIN_BUTTON, ADD_GRAVATAR, CORRECT_ANSWER } from '../actions';
+import { LOGIN_BUTTON, ADD_GRAVATAR, CORRECT_ANSWER, ADD_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   email: '',

@@ -9,6 +9,7 @@ class Play extends Component {
   state = {
     questions: [],
     questionPosition: 0,
+    reveal: false,
   }
 
   currentTime = 0;
@@ -59,7 +60,14 @@ class Play extends Component {
   }
 
   componentDidUpdate = () => {
-    this.resetAlternativesStyle();
+    // this.resetAlternativesStyle();
+    const { reveal } = this.state;
+
+    if (reveal) {
+      this.revealAnswers();
+    } else {
+      this.resetAlternativesStyle();
+    }
   }
 
   getDifficultyScore = (difficulty) => {
@@ -92,11 +100,13 @@ class Play extends Component {
 
     dispatch(addCorrectAnswer());
     dispatch(addScore(score));
-    this.revealAnswers();
+    // this.revealAnswers();
+    this.setState({ reveal: true });
   }
 
   handleWrong = () => {
-    this.revealAnswers();
+    // this.revealAnswers();
+    this.setState({ reveal: true });
   }
 
   handleClickNext = () => {
@@ -108,6 +118,7 @@ class Play extends Component {
     }
     this.setState({
       questionPosition: questionPosition + 1,
+      reveal: false,
     });
   }
 
@@ -116,7 +127,7 @@ class Play extends Component {
   }
 
   showQuestions = () => {
-    const { questions, questionPosition } = this.state;
+    const { questions, questionPosition, reveal } = this.state;
     const { isTimeOver } = this.props;
 
     const currentQuestion = questions[questionPosition];
@@ -138,18 +149,9 @@ class Play extends Component {
       ));
     allAnswersSorted
       .splice(Math.round(Math.random()
-      * incorrectAnswers.length), 0, (
-        <button
-          key="correct"
-          type="button"
-          className="alternative correct"
-          data-testid="correct-answer"
-          disabled={ isTimeOver }
-          onClick={ () => this.handleCorrect(currentQuestion) }
-        >
-          {correctAnswer}
-        </button>
-      ));
+        * incorrectAnswers.length),
+      0,
+      (this.correctButton(correctAnswer, currentQuestion)));
 
     return (
       <div>
@@ -157,18 +159,41 @@ class Play extends Component {
         <p data-testid="question-text">{questions[questionPosition].question}</p>
         <Timer onTimeChange={ this.handleOnChangeTime } />
         <div data-testid="answer-options">
-          { allAnswersSorted }
+          {allAnswersSorted}
         </div>
-        <button
-          data-testid="btn-next"
-          onClick={ this.handleClickNext }
-          type="button"
-        >
-          Next
-        </button>
+
+        {reveal
+          && this.buttonNext()}
       </div>
     );
   }
+
+  correctButton = (correctAnswer, currentQuestion) => {
+    const { isTimeOver } = this.props;
+    return (
+      <button
+        key="correct"
+        type="button"
+        className="alternative correct"
+        data-testid="correct-answer"
+        disabled={ isTimeOver }
+        onClick={ () => this.handleCorrect(currentQuestion) }
+      >
+        {correctAnswer}
+      </button>
+    );
+  }
+
+  buttonNext = () => (
+    <button
+      data-testid="btn-next"
+      onClick={ this.handleClickNext }
+      type="button"
+    >
+      Next
+
+    </button>
+  )
 
   render = () => {
     const { questions } = this.state;
@@ -176,8 +201,9 @@ class Play extends Component {
       <div>
         <HeaderInGame />
         {questions.length > 0
-        && this.showQuestions()}
+          && this.showQuestions()}
       </div>
+
     );
   }
 }
