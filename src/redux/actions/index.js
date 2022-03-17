@@ -4,6 +4,8 @@ export const ADD_TOKEN = 'ADD_TOKEN';
 export const CORRECT_ANSWER = 'CORRECT_ANSWER';
 export const IS_TIME_OVER = 'IS_TIME_OVER';
 export const ADD_SCORE = 'ADD_SCORE';
+export const RESET_TIMER_TRUE = 'RESET_TIMER_TRUE';
+export const RESET_TIMER_FALSE = 'RESET_TIMER_FALSE';
 
 export const loginButton = (value) => ({
   type: LOGIN_BUTTON,
@@ -36,4 +38,12 @@ export const verifyCountdown = () => ({
 export const addScore = (score) => ({
   type: ADD_SCORE,
   payload: score,
+});
+
+export const resetTimerTrue = () => ({
+  type: RESET_TIMER_TRUE,
+});
+
+export const resetTimerFalse = () => ({
+  type: RESET_TIMER_FALSE,
 });

@@ -2,8 +2,13 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HeaderInGame from '../components/HeaderInGame';
+import {
+  addCorrectAnswer,
+  addTokenRequest,
+  addScore,
+  resetTimerTrue,
+} from '../redux/actions';
 import Timer from '../components/Timer';
-import { addCorrectAnswer, addTokenRequest, addScore } from '../redux/actions';
 
 class Play extends Component {
   state = {
@@ -100,7 +105,7 @@ class Play extends Component {
 
     dispatch(addCorrectAnswer());
     dispatch(addScore(score));
-    // this.revealAnswers();
+
     this.setState({ reveal: true });
   }
 
@@ -110,9 +115,10 @@ class Play extends Component {
   }
 
   handleClickNext = () => {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
     const { questionPosition } = this.state;
     const maximumLengthAnswer = 4;
+    dispatch(resetTimerTrue());
     if (questionPosition === maximumLengthAnswer) {
       history.push('/feedback');
     }
@@ -213,18 +219,21 @@ class Play extends Component {
           Play Again
         </button>
         {questions.length > 0
-          && this.showQuestions()}
+        && this.showQuestions()}
       </div>
 
     );
   }
 }
 
+Play.defaultProps = { history: PropTypes.arrayOf(PropTypes.object) };
+
 Play.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  history: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
   isTimeOver: PropTypes.bool.isRequired,
-  push: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
