@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HeaderInGame from '../components/HeaderInGame';
-import { addCorrectAnswer, addTokenRequest, addScore } from '../redux/actions';
 import Timer from '../components/Timer';
+import { addCorrectAnswer, addTokenRequest, addScore } from '../redux/actions';
 
 class Play extends Component {
   state = {
