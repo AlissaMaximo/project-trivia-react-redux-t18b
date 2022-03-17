@@ -20,6 +20,11 @@ class Feedback extends Component {
     }
   }
 
+  handleClickPlayAgain = () => {
+    const { history } = this.props;
+    history.push('/');
+  }
+
   render() {
     const { assertions, score } = this.props;
     return (
@@ -30,13 +35,19 @@ class Feedback extends Component {
           {
             score || '0'
           }
-
         </p>
         <p data-testid="feedback-total-question">
           {
             assertions || '0'
           }
         </p>
+        <button
+          data-testid="btn-play-again"
+          type="button"
+          onClick={ this.handleClickPlayAgain }
+        >
+          Play Again
+        </button>
         <Link to="/ranking">
           <button data-testid="btn-ranking" type="button">Ranking</button>
         </Link>
@@ -47,6 +58,7 @@ class Feedback extends Component {
 
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
+  history: PropTypes.arrayOf(PropTypes.object).isRequired,
   score: PropTypes.number.isRequired,
 };
 

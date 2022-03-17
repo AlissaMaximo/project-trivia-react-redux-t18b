@@ -168,6 +168,11 @@ class Play extends Component {
     );
   }
 
+  handleClickPlayAgain = () => {
+    const { history } = this.props;
+    history.push('/');
+  }
+
   correctButton = (correctAnswer, currentQuestion) => {
     const { isTimeOver } = this.props;
     return (
@@ -200,6 +205,13 @@ class Play extends Component {
     return (
       <div>
         <HeaderInGame />
+        <button
+          data-testid="btn-play-again"
+          type="button"
+          onClick={ this.handleClickPlayAgain }
+        >
+          Play Again
+        </button>
         {questions.length > 0
           && this.showQuestions()}
       </div>
